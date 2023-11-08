@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "ddfaa5a7-de95-4666-b43a-80d702e5ff9b",
+		"name": "GORestAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30820868",
+		"_collection_link": "https://orange-escape-63424.postman.co/workspace/demo~2ade001c-da33-477e-ab7d-0bf2ec08d6d7/collection/30820868-ddfaa5a7-de95-4666-b43a-80d702e5ff9b?action=share&source=collection_link&creator=30820868"
+	},
+	"item": [
+		{
+			"name": "create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify if user is created\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"learnerpostman\");\r",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get('email'));\r",
+							"    pm.expect(jsonData.gender).to.eql(\"male\");\r",
+							"    pm.expect(jsonData.status).to.eql(\"active\");\r",
+							"    pm.expect(jsonData.id).to.be.a('number');\r",
+							"    pm.collectionVariables.set('id',jsonData.id )\r",
+							"});\r",
+							"\r",
+							"console.log('test executed');"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('prescript');\r",
+							"\r",
+							"pm.collectionVariables.set('email', 'randomqzaaaaz@test.com')"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"email\": \"{{email}}\",\r\n \"name\" : \"learnerpostman\",\r\n \"gender\" : \"male\",\r\n \"status\" : \"active\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/public/v2/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify if user details are corrrect\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"learnerpostman\");\r",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get('email'));\r",
+							"    pm.expect(jsonData.gender).to.eql(\"male\");\r",
+							"    pm.expect(jsonData.status).to.eql(\"active\");\r",
+							"    pm.expect(jsonData.id).to.be.a('number');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/public/v2/users/{{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/public/v2/users/{{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify if the user is deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify if message exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Resource not found\");\r",
+							"});\r",
+							"\r",
+							"// duplicate test\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/public/v2/users/{{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		}
+	]
+}
