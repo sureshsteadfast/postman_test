@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ddfaa5a7-de95-4666-b43a-80d702e5ff9b",
+		"_postman_id": "08b49e93-a163-4b3f-9d9f-7774a7153cfa",
 		"name": "GORestAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30820868",
-		"_collection_link": "https://orange-escape-63424.postman.co/workspace/demo~2ade001c-da33-477e-ab7d-0bf2ec08d6d7/collection/30820868-ddfaa5a7-de95-4666-b43a-80d702e5ff9b?action=share&source=collection_link&creator=30820868"
+		"_exporter_id": "31019817",
+		"_collection_link": "https://orange-escape-63424.postman.co/workspace/PR-demo~137d8f57-8614-4aa5-a052-0c6001db89a1/collection/30820868-08b49e93-a163-4b3f-9d9f-7774a7153cfa?action=share&source=collection_link&creator=31019817"
 	},
 	"item": [
 		{
@@ -193,7 +193,10 @@
 			"name": "New Request",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
